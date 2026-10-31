@@ -66,7 +66,7 @@ No official values were published, so we used clearly labelled placeholders: ₹
 Good catch, and we tested it. Two "no model" policies: *OTP everyone* costs ₹7.15 lakh, and *OTP a random 5%* costs ₹7.60 lakh. Our 3-zone rule costs **₹1.39 lakh**. The saving comes from the model choosing the *right* payments.
 
 **Q: How did you pick the three zones?**
-We searched about 600 × 600 pairs of cut-offs (T1, T2) on validation and kept the cheapest. The OTP zone is capped at 5% of traffic, because no bank would challenge every customer. Result: approve 96.7%, OTP 3.2%, block 0.11%. The block zone holds 76% of all fraud and wrongly blocks only 9 genuine customers.
+We searched about 600 × 600 pairs of cut-offs (T1, T2) on validation and kept the cheapest. The OTP zone is capped at 5% of traffic, because no bank would challenge every customer. Result: approve 96.6%, OTP 3.2%, block 0.11%. The block zone holds 76% of all fraud and wrongly blocks only 9 genuine customers.
 
 **Q: What's the 80% OTP stop rate based on?**
 It's an assumption we can't measure from this data, and we label it as one. A different rate changes the OTP zone's cost, not the model.

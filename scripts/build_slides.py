@@ -42,7 +42,7 @@ def inr(v):
 
 
 def pct(v, d=0):
-    return f'{v:.{d}f}%'
+    return f'{round(v + 1e-9, d):.{d}f}%'
 
 
 prs = Presentation()
@@ -112,9 +112,9 @@ def image(s, name, x, y, w, h):
     s.shapes.add_picture(str(FIG / name), x + (w - pw) // 2, y + (h - ph) // 2, pw, ph)
 
 
-def stat(s, x, y, w, big, label, color=NAVY, big_size=44):
+def stat(s, x, y, w, big, label, color=NAVY, big_size=44, label_color=MUTED):
     text(s, x, y, w, Inches(0.8), big, size=big_size, bold=True, color=color)
-    text(s, x, y + Inches(0.85), w, Inches(0.9), label, size=15, color=MUTED)
+    text(s, x, y + Inches(0.85), w, Inches(0.9), label, size=15, color=label_color)
 
 
 def table(s, x, y, w, df, col_w=None, size=14, highlight=None):
@@ -180,7 +180,7 @@ s = new_slide(PAPER, 'Two-sided cost: missing fraud loses money; blocking a genu
 title(s, 'The business problem', 'Every decision has two ways to lose money')
 for i, (h, b, c) in enumerate([
         ('Miss a fraud', f"Money lost and trust lost.\nCost assumed: ₹{costs['missed_fraud']:,} each", ORANGE),
-        ('Block a genuine customer', f"Angry customer, may switch apps.\nCost assumed: ₹{costs['false_block']:,} each", BLUE),
+        ('Block a good user', f"Angry customer, may switch apps.\nCost assumed: ₹{costs['false_block']:,} each", BLUE),
         ('Ask for an OTP', f"5 seconds of friction.\nCost assumed: ₹{costs['otp']:,} each", GREEN)]):
     x = MARGIN + i * Inches(4.1)
     card(s, x, Inches(1.95), Inches(3.85), Inches(1.9))
@@ -213,7 +213,7 @@ footer(s, 'Split: time-aware. Oldest 60% train · next 20% validation (every cho
 s = new_slide(PAPER, 'Card fraud is about 5 times more common between 1 and 5 AM, and amounts are U-shaped: tiny '
                      '“card-testing” payments and large ones are riskier. These are associations, not causes. '
                      'UPI shows no such pattern: every slice sits on the overall rate.')
-title(s, 'PS3 · Where fraud lives', 'Night-time and tiny “test” payments carry more card fraud')
+title(s, 'PS3 · Where fraud lives', 'Fraud peaks at night and on tiny “test” payments')
 image(s, '02_cc_fraud_by_hour_amount.png', MARGIN, Inches(1.85), Inches(12.1), Inches(3.6))
 text(s, MARGIN, Inches(5.65), Inches(12.1), Inches(1.2), [
     [('1–5 AM: ', {'bold': True, 'color': ORANGE}), ('0.67% fraud vs 0.14% at other hours (about 5×), peaking at 1.45% at 2 AM.', {})],
@@ -263,12 +263,14 @@ b = card_bands.set_index('zone')
 s = new_slide(PAPER, 'Two cut-offs make three zones. Most payments sail through, a small slice gets an OTP, and the '
                      'block zone is tiny but holds three quarters of the fraud. We checked it against no-model policies '
                      '(OTP everyone, OTP a random 5%) so the saving is due to the model, and capped OTP at 5% of traffic.')
-title(s, 'PS7 · The decision rule', 'Approve 96.7% · OTP 3.2% · Block 0.1%')
+title(s, 'PS7 · The decision rule', ' · '.join(f"{n} {pct(b.loc[z, '%_of_traffic'], 1)}" for n, z in
+                                           [('Approve', 'APPROVE'), ('OTP', 'STEP-UP OTP'), ('Block', 'BLOCK')]))
 for i, (z, label, c) in enumerate([('APPROVE', 'Approve', GREEN), ('STEP-UP OTP', 'Step-up OTP', BLUE), ('BLOCK', 'Block', ORANGE)]):
     x = MARGIN + i * Inches(4.1)
     card(s, x, Inches(1.9), Inches(3.85), Inches(2.25))
     text(s, x + Inches(0.3), Inches(2.05), Inches(3.3), Inches(0.5), label, size=22, bold=True, color=c)
-    text(s, x + Inches(0.3), Inches(2.6), Inches(3.3), Inches(0.7), pct(b.loc[z, '%_of_traffic'], 1) + ' of payments', size=28, bold=True, color=NAVY)
+    text(s, x + Inches(0.3), Inches(2.55), Inches(3.3), Inches(0.6), pct(b.loc[z, '%_of_traffic'], 1), size=30, bold=True, color=NAVY)
+    text(s, x + Inches(1.9), Inches(2.68), Inches(1.8), Inches(0.4), 'of payments', size=15, color=MUTED)
     who = {'APPROVE': f"{int(b.loc[z, 'frauds'])} frauds slip through",
            'STEP-UP OTP': f"{int(b.loc[z, 'frauds'])} frauds · {int(b.loc[z, 'genuine_customers_affected']):,} genuine asked",
            'BLOCK': f"{int(b.loc[z, 'frauds'])} frauds ({pct(b.loc[z, '%_of_all_fraud'])}) · only {int(b.loc[z, 'genuine_customers_affected'])} genuine"}[z]
@@ -295,9 +297,9 @@ s = new_slide(NAVY, 'The same pipeline on both channels. On cards it is 610 time
 title(s, 'Two channels, one pipeline', f"Cards: {cardc.PR_AUC_lift_x:,.0f}× better than random. UPI: {upic.PR_AUC_lift_x:.1f}×", dark=True)
 image(s, '12_two_channel_comparison.png', MARGIN, Inches(1.85), Inches(12.1), Inches(3.4))
 stat(s, MARGIN, Inches(5.45), Inches(6), pct(cardc['recall_at_cut_off_%']) + ' caught · ' + pct(cardc['3zone_saving_vs_nothing_%']) + ' saved',
-     'Card / digital: real labels, real signal', WHITE, 32)
-stat(s, Inches(6.9), Inches(5.45), Inches(6), f"0% caught · {int(upic.genuine_blocked)} blocked of 50,000",
-     'UPI: no signal, so the system safely refuses to block', WHITE, 32)
+     'Card / digital: real labels, real signal', WHITE, 32, SOFT)
+stat(s, Inches(6.9), Inches(5.45), Inches(6), f"0% caught · {int(upic.genuine_blocked)} blocked",
+     f"UPI: of {int(upic.test_transactions):,} payments. No signal, so it refuses to block", WHITE, 32, SOFT)
 footer(s, 'PR-AUC ÷ fraud rate on each test slice. Identical code, no channel-specific tuning.', dark=True)
 
 # ---------------------------------------------------------------- 11 rescue test

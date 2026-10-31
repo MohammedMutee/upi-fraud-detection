@@ -88,4 +88,4 @@ else:
     show(float(upi['model'].predict_proba(X)[:, 1][0]), float(-upi['iso'].score_samples(X)[0]),
          int(r.fraud_flag), upi['T1'], upi['T2'])
     with st.expander('Raw transaction'):
-        st.dataframe(raw.iloc[[i]].T, width='stretch')
+        st.dataframe(raw.iloc[[i]].T.astype(str), width='stretch')   # mixed column types: show as text

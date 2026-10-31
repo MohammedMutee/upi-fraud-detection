@@ -24,7 +24,7 @@ The identical pipeline learns real fraud patterns on the card channel and correc
 | Test PR-AUC / ROC-AUC | 0.796 / 0.982 |
 | Fraud caught / genuine blocked | 58 of 74 (78%) / 19 of 56,672 |
 | Anomaly detector (no labels) | Isolation Forest finds 50% of fraud in its top 1% |
-| 3-zone rule | Approve 96.7% · OTP 3.2% · Block 0.11% of traffic |
+| 3-zone rule | Approve 96.6% · OTP 3.2% · Block 0.11% of traffic |
 | Expected cost on test | **₹1.39 lakh** (3 zones) vs ₹1.85 lakh (0.5 cut-off) vs ₹7.40 lakh (do nothing) |
 
 > ⚠️ The ₹ costs (₹10,000 per missed fraud, ₹500 per false block, ₹10 per OTP) and the 80% OTP stop rate are **placeholders**. Replace them with the organiser values in the first code cell of the notebook and re-run. Every savings figure is a **scenario estimate**.

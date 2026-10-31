@@ -129,7 +129,7 @@ Two cut-offs (T1 = 0.0005, T2 = 0.515) were chosen on validation, with the OTP z
 
 | Zone (card, test) | Share of payments | Frauds | Genuine customers affected | Expected cost |
 |---|---|---|---|---|
-| ✅ Approve | 96.7% | 10 | none | ₹1,00,000 |
+| ✅ Approve | 96.6% | 10 | none | ₹1,00,000 |
 | 📱 Step-up OTP | 3.2% | 8 | 1,828 asked for an OTP | ₹34,360 |
 | ⛔ Block | 0.11% | **56 (76% of all fraud)** | only 9 blocked | ₹4,500 |
 | **Total** | 100% | 74 | | **₹1.39 lakh** |

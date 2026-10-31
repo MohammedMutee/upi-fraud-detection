@@ -782,7 +782,7 @@ step('Step 7 summary · Approve / OTP / Block rule',
      'Turned the score into 3 actions using two cut-offs (T1 and T2).',
      'With one cut-off you can only allow or block. Many payments are only "a bit suspicious", and a 5-second OTP is a cheap middle path: easy for the real customer, hard for someone using a stolen account.',
      'A vectorised grid search over about 600 × 600 (T1, T2) pairs on **validation**. Cost = approved fraud × ₹X + OTPs × ₹Z + fraud that gets past the OTP (20%, an *assumption*) × ₹X + blocked genuine × ₹Y. Reported once on test.',
-     '**On test:** Approve takes **96.7%** of traffic and lets 10 frauds through. OTP takes **3.2%** (1,836 payments): it catches 8 frauds and asks 1,828 genuine users for an OTP. Block takes **0.11%** (65 payments) and catches **56 frauds (76%)** while wrongly blocking **only 9 genuine** customers. '
+     '**On test:** Approve takes **96.6%** of traffic and lets 10 frauds through. OTP takes **3.2%** (1,836 payments): it catches 8 frauds and asks 1,828 genuine users for an OTP. Block takes **0.11%** (65 payments) and catches **56 frauds (76%)** while wrongly blocking **only 9 genuine** customers. '
      '**Total cost ₹1.39 lakh:** 18% cheaper than the single cut-off (₹1.70 lakh) and **81% cheaper than doing nothing** (₹7.4 lakh). Scaled up, that is about **₹2.4 lakh vs ₹13 lakh per 100k transactions** *(a scenario estimate under the placeholder costs)*.')
 
 # ---------------------------------------------------------------- PS8
