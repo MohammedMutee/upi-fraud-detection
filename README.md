@@ -2,7 +2,7 @@
 
 KLU+Path-3 · ML-02 Hackathon.
 
-**Team:** Mohammed Mutee Ruknuddin · Buradakavi Durga Sri Varshini · P Annapurna · Kondaveti Tejaswanth · D Siva Dhanesh
+**Team: Foundry AI · Group 3** ([TEAM.md](TEAM.md)): Mohammed Mutee Ruknuddin · Buradakavi Durga Sri Varshini · P Annapurna · Kondaveti Tejaswanth · D Siva Dhanesh
 
 This system scores each payment and decides whether to **approve**, ask for a **step-up OTP**, or **block** it. The cut-offs are chosen by rupee cost, not by habit.
 
