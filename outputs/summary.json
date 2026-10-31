@@ -1,0 +1,124 @@
+{
+  "costs": {
+    "missed_fraud": 10000,
+    "false_block": 500,
+    "otp": 10,
+    "otp_stop_rate": 0.8,
+    "note": "PLACEHOLDER: replace with organiser values"
+  },
+  "data": {
+    "cc_rows_clean": 283726,
+    "cc_frauds": 473,
+    "cc_duplicates_dropped": 1081,
+    "upi_rows": 250000,
+    "upi_frauds": 480,
+    "upi_best_test_roc_auc": 0.5357
+  },
+  "trap": {
+    "dummy_accuracy_%": 99.87,
+    "dummy_recall_%": 0.0
+  },
+  "final_model": {
+    "name": "XGBoost (No handling)",
+    "threshold": 0.21,
+    "test_PR_AUC": 0.7957043194392454,
+    "test_ROC_AUC": 0.9817858955087216,
+    "test_precision": 0.7532467532467533,
+    "test_recall": 0.7837837837837838,
+    "test_F1": 0.7682119205298014,
+    "test_TP": 58,
+    "test_FP": 19,
+    "test_FN": 16
+  },
+  "anomaly": {
+    "test_PR_AUC": 0.05,
+    "fraud_in_top_1%": 50.0
+  },
+  "bands": {
+    "T1": 0.0004994313579397847,
+    "T2": 0.5147425976141901,
+    "table": [
+      {
+        "zone": "APPROVE",
+        "transactions": 54845,
+        "%_of_traffic": 96.65,
+        "frauds": 10,
+        "%_of_all_fraud": 13.514,
+        "genuine_customers_affected": 0,
+        "expected_cost_\u20b9": 100000.0
+      },
+      {
+        "zone": "STEP-UP OTP",
+        "transactions": 1836,
+        "%_of_traffic": 3.235,
+        "frauds": 8,
+        "%_of_all_fraud": 10.811,
+        "genuine_customers_affected": 1828,
+        "expected_cost_\u20b9": 34360.0
+      },
+      {
+        "zone": "BLOCK",
+        "transactions": 65,
+        "%_of_traffic": 0.115,
+        "frauds": 56,
+        "%_of_all_fraud": 75.676,
+        "genuine_customers_affected": 9,
+        "expected_cost_\u20b9": 4500.0
+      },
+      {
+        "zone": "TOTAL",
+        "transactions": 56746,
+        "%_of_traffic": 100.0,
+        "frauds": 74,
+        "%_of_all_fraud": 100.0,
+        "genuine_customers_affected": 1837,
+        "expected_cost_\u20b9": 138860.0
+      }
+    ]
+  },
+  "policies": [
+    {
+      "policy": "Do nothing (approve all)",
+      "test_expected_cost_\u20b9": 740000.0,
+      "saving_vs_do_nothing_%": 0.0,
+      "cost_per_100k_txns_\u20b9 (scenario estimate)": 1304056.7
+    },
+    {
+      "policy": "OTP everyone (no model)",
+      "test_expected_cost_\u20b9": 715460.0,
+      "saving_vs_do_nothing_%": 3.3,
+      "cost_per_100k_txns_\u20b9 (scenario estimate)": 1260811.3
+    },
+    {
+      "policy": "OTP a random 5% (no model)",
+      "test_expected_cost_\u20b9": 760380.0,
+      "saving_vs_do_nothing_%": -2.8,
+      "cost_per_100k_txns_\u20b9 (scenario estimate)": 1339971.1
+    },
+    {
+      "policy": "Single cut-off @ default 0.5",
+      "test_expected_cost_\u20b9": 185000.0,
+      "saving_vs_do_nothing_%": 75.0,
+      "cost_per_100k_txns_\u20b9 (scenario estimate)": 326014.2
+    },
+    {
+      "policy": "Single cut-off @ cost-optimal 0.210",
+      "test_expected_cost_\u20b9": 169500.0,
+      "saving_vs_do_nothing_%": 77.1,
+      "cost_per_100k_txns_\u20b9 (scenario estimate)": 298699.5
+    },
+    {
+      "policy": "3-zone rule (T1=0.000, T2=0.515)",
+      "test_expected_cost_\u20b9": 138860.0,
+      "saving_vs_do_nothing_%": 81.2,
+      "cost_per_100k_txns_\u20b9 (scenario estimate)": 244704.5
+    }
+  ],
+  "top_features": [
+    "V4",
+    "V14",
+    "V12",
+    "V10",
+    "V11"
+  ]
+}

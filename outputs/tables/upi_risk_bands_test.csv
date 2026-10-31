@@ -1,0 +1,5 @@
+zone,transactions,%_of_traffic,frauds,%_of_all_fraud,genuine_customers_affected,expected_cost_₹
+APPROVE,48702,97.404,92,95.83333333333334,0,920000.0
+STEP-UP OTP,1296,2.5919999999999996,4,4.166666666666666,1292,20960.0
+BLOCK,2,0.004,0,0.0,2,1000.0
+TOTAL,50000,100.0,96,100.0,1294,941960.0

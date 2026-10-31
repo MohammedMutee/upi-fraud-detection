@@ -1,0 +1,6 @@
+model,PR_AUC,ROC_AUC,fraud_caught_top_0.1%,precision_top_0.1%,fraud_caught_top_0.5%,precision_top_0.5%,fraud_caught_top_1.0%,precision_top_1.0%,fraud_caught_top_5.0%,precision_top_5.0%
+Isolation Forest (No labels),0.05,0.95,1.35,1.75,22.97,5.99,50.0,6.51,83.78,2.18
+XGBoost (Class weights),0.79,0.97,71.62,92.98,83.78,21.83,87.84,11.44,87.84,2.29
+Random Forest (Class weights),0.82,0.97,70.27,91.23,87.84,22.89,87.84,11.44,90.54,2.3
+Logistic Regression (Class weights),0.74,0.98,68.92,89.47,85.14,22.18,86.49,11.27,90.54,2.36
+Rule baseline (No ML),0.0,0.63,37.84,0.44,37.84,0.44,37.84,0.44,37.84,0.44

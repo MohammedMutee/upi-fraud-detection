@@ -1,0 +1,15 @@
+dataset,check,count,finding,treatment
+creditcard,Missing values,0,Nothing found,No action
+creditcard,Exact duplicate rows,1081,19 of them are fraud,DROPPED (keep first): copies inflate scores and can sit on both sides of the split
+creditcard,Amount = 0,1825,Plausible card-verification pings,KEPT; noted in limitations
+creditcard,Amount < 0,0,Nothing found,No action
+creditcard,Time out of order / negative,0,"Time runs 0 to 172,792s (about 2 days)",Used to make the time-aware split and the hour of day
+creditcard,V1 to V28 (anonymised PCA),28,Real meaning is hidden,Used as features; limits how far we can explain them
+upi,Missing values,0,Nothing found,No action
+upi,Duplicate rows / duplicate IDs,0,Nothing found,No action
+upi,Unparseable timestamps,0,Range 2024-01-01 to 2024-12-30,No action
+upi,hour / day / weekend that disagree with the timestamp,0,These are derived copies of the timestamp,Kept (consistent)
+upi,Amount <= 0,0,"₹10 to ₹42,099",No action
+upi,Categories with case or space variants,0,Nothing found,No action
+upi,transaction id,250000,Pure identifier,"EXCLUDED (no signal, memorisable)"
+upi,transaction_status,12376,SUCCESS/FAILED is only known AFTER processing,EXCLUDED as LEAKAGE

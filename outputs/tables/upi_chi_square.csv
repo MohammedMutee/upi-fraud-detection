@@ -1,0 +1,14 @@
+column,groups,p_value,differs_at_5%,significant_after_bonferroni
+sender_age_group,5,0.02551329991249038,True,False
+amount_band,6,0.1045887948642237,False,False
+receiver_age_group,5,0.11840133989814255,False,False
+sender_bank,8,0.2384144562046857,False,False
+network_type,4,0.4353488243139886,False,False
+transaction type,4,0.507985217270233,False,False
+sender_state,10,0.5580442898584888,False,False
+is_weekend,2,0.5756276304074419,False,False
+day_of_week,7,0.7245849021814244,False,False
+device_type,3,0.795918273023547,False,False
+hour_of_day,24,0.859725125300823,False,False
+merchant_category,10,0.9131574390231126,False,False
+receiver_bank,8,0.9690605975396545,False,False

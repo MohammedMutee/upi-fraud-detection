@@ -1,0 +1,14 @@
+pandas>=2.2
+numpy>=2.1
+scipy>=1.11
+scikit-learn>=1.5
+imbalanced-learn>=0.14
+xgboost>=3.0
+shap>=0.54
+matplotlib>=3.9
+seaborn>=0.13
+joblib
+jupyter
+nbformat
+nbconvert
+streamlit>=1.50

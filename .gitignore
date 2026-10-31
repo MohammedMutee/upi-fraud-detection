@@ -1,0 +1,16 @@
+# Python environment
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# Input data: creditcard.csv is 144 MB (over GitHub's 100 MB limit); see README for where to get both files
+*.csv
+!outputs/tables/*.csv
+!models/demo_transactions.csv
+
+# Editor / office lock files and run logs
+.~lock*
+outputs/run.log
+
+# Organiser material: the hackathon brief is not ours to republish
+UPI - DIGITAL PAYMENT FRAUD DETECTION.pdf

@@ -1,0 +1,7 @@
+policy,test_expected_cost_₹,saving_vs_do_nothing_%,cost_per_100k_txns_₹ (scenario estimate)
+Do nothing (approve all),740000.0,0.0,1304056.673598139
+OTP everyone (no model),715460.0,3.3162162162162168,1260811.3347196279
+OTP a random 5% (no model),760380.0,-2.754054054054045,1339971.099284531
+Single cut-off @ default 0.5,185000.0,75.0,326014.16839953477
+Single cut-off @ cost-optimal 0.210,169500.0,77.0945945945946,298699.4678038981
+"3-zone rule (T1=0.000, T2=0.515)",138860.0,81.23513513513514,244704.4725619427
