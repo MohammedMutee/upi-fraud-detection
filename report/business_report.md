@@ -3,7 +3,10 @@
 ### A cost-aware fraud decision system for UPI and digital payments
 
 **KLU+Path-3 · ML-02 Hackathon · Business report**
-Team: [names] · Code: `github.com/MohammedMutee/upi-fraud-detection`
+
+**Team:** Mohammed Mutee Ruknuddin · Buradakavi Durga Sri Varshini · P Annapurna · Kondaveti Tejaswanth · D Siva Dhanesh
+
+Code: `github.com/MohammedMutee/upi-fraud-detection`
 
 > **How to read the numbers.** Every result is measured on a held-out test slice that was used once, after all choices had been made on a separate validation slice. The rupee costs (₹10,000 per missed fraud, ₹500 per wrongly blocked customer, ₹10 per OTP) are **placeholder assumptions**, because no official values were published. Every saving is therefore a **scenario estimate**, kept apart from the observed results.
 

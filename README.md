@@ -1,6 +1,10 @@
 # 🏦 Real-Time UPI / Digital Payment Fraud Detection
 
-KLU+Path-3 · ML-02 Hackathon. This system scores each payment and decides whether to **approve**, ask for a **step-up OTP**, or **block** it. The cut-offs are chosen by rupee cost, not by habit.
+KLU+Path-3 · ML-02 Hackathon.
+
+**Team:** Mohammed Mutee Ruknuddin · Buradakavi Durga Sri Varshini · P Annapurna · Kondaveti Tejaswanth · D Siva Dhanesh
+
+This system scores each payment and decides whether to **approve**, ask for a **step-up OTP**, or **block** it. The cut-offs are chosen by rupee cost, not by habit.
 
 ## Two channels, one pipeline
 
@@ -77,6 +81,7 @@ To change the notebook text or code, edit `scripts/build_notebook.py` and regene
 | Business report | [`report/business_report.md`](report/business_report.md) · [PDF](report/business_report.pdf) |
 | Presentation (15 slides, speaker notes included) | [`presentation/fraud_detection_deck.pptx`](presentation/fraud_detection_deck.pptx) · [PDF](presentation/fraud_detection_deck.pdf) |
 | Q&A preparation | [`presentation/qa_prep.md`](presentation/qa_prep.md) |
+| Speaker script (who says what, slide by slide) | [`presentation/speaker_script.md`](presentation/speaker_script.md) |
 | Model comparison table | [`outputs/tables/model_comparison.csv`](outputs/tables/model_comparison.csv) · [UPI](outputs/tables/upi_model_comparison.csv) |
 | Cost analysis | [`outputs/figures/07_cost_vs_threshold.png`](outputs/figures/07_cost_vs_threshold.png) · [`cost_sensitivity.csv`](outputs/tables/cost_sensitivity.csv) |
 | Risk-score rule | [`outputs/tables/risk_bands_test.csv`](outputs/tables/risk_bands_test.csv) · [`policy_costs.csv`](outputs/tables/policy_costs.csv) |

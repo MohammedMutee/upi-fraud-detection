@@ -28,6 +28,8 @@ md("""
 
 **KLU+Path-3 · ML-02 Hackathon**
 
+**Team:** Mohammed Mutee Ruknuddin · Buradakavi Durga Sri Varshini · P Annapurna · Kondaveti Tejaswanth · D Siva Dhanesh
+
 One fraud decision system, tested on **two payment channels**:
 
 | Channel | Dataset | What it is |
@@ -843,8 +845,16 @@ importance.head(10).round(4)
 """)
 
 code(r"""
+from sklearn.pipeline import Pipeline as ServingPipeline
+
+def for_serving(model):
+    # SMOTE only acts during fit; dropping it lets the saved model load without imbalanced-learn installed
+    if isinstance(model, Pipeline):
+        return ServingPipeline([(name, step) for name, step in model.steps if name != 'smote'])
+    return model
+
 # Save everything the demo app and the report need
-joblib.dump({'model': final_model, 'features': FEATURES, 'key': FINAL_KEY,
+joblib.dump({'model': for_serving(final_model), 'features': FEATURES, 'key': FINAL_KEY,
              'threshold': FINAL_THR, 'T1': T1, 'T2': T2, 'iso': iso}, MOD / 'final_model.joblib')
 test.assign(score=s_te, anomaly=iso_te).drop(columns=['amount_band'], errors='ignore') \
     .sample(2000, random_state=SEED).to_csv(MOD / 'demo_transactions.csv', index=False)
@@ -1082,7 +1092,7 @@ summary['two_channels'] = channels.round(4).to_dict('records')
 
 # UPI bundle for the demo app: model, cut-offs, Isolation Forest, and 2,000 test payments (raw + model features)
 demo_idx = Xu_te.sample(2000, random_state=SEED).index
-joblib.dump({'model': UPI_MODELS[UPI_FINAL], 'features': list(upi_X.columns), 'key': UPI_FINAL,
+joblib.dump({'model': for_serving(UPI_MODELS[UPI_FINAL]), 'features': list(upi_X.columns), 'key': UPI_FINAL,
              'threshold': UPI_THR, 'T1': uT1, 'T2': uT2, 'iso': upi_iso,
              'demo_X': Xu_te.loc[demo_idx], 'demo_raw': upi.loc[demo_idx, upi_raw.columns]}, MOD / 'upi_model.joblib')
 (ROOT / 'outputs' / 'summary.json').write_text(json.dumps(summary, indent=2, default=str))

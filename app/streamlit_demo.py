@@ -12,10 +12,24 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 @st.cache_resource
-def load():
-    card = joblib.load(ROOT / 'models' / 'final_model.joblib')
-    card['demo'] = pd.read_csv(ROOT / 'models' / 'demo_transactions.csv')
-    return card, joblib.load(ROOT / 'models' / 'upi_model.joblib')
+def load(name):
+    # One channel at a time, so a missing UPI model never takes the card demo down with it
+    bundle = joblib.load(ROOT / 'models' / name)
+    if name == 'final_model.joblib':
+        bundle['demo'] = pd.read_csv(ROOT / 'models' / 'demo_transactions.csv')
+    return bundle
+
+
+def load_or_explain(name):
+    try:
+        return load(name)
+    except FileNotFoundError:
+        st.error(f'`models/{name}` is missing. Run the notebook first (it creates the model files):\n\n'
+                 '`cd notebooks && ../.venv/bin/jupyter nbconvert --to notebook --execute --inplace fraud_analysis.ipynb`')
+    except ModuleNotFoundError as e:
+        st.error(f'This Python is missing the `{e.name}` package. Start the demo with the project environment:\n\n'
+                 '`.venv/bin/streamlit run app/streamlit_demo.py`')
+    st.stop()
 
 
 def card_features(df, names):
@@ -59,10 +73,10 @@ def show(score, anomaly, actual, t1, t2):
 
 st.set_page_config(page_title='Fraud Decision Demo', page_icon='🛡️')
 st.title('🛡️ Payment Fraud Decision Engine')
-card, upi = load()
 channel = st.radio('Channel', ['Card / digital', 'UPI'], horizontal=True)
 
 if channel == 'Card / digital':
+    card = load_or_explain('final_model.joblib')
     st.caption(f"Model: {card['key'][0]} ({card['key'][1]}) · T1 = {card['T1']:.4f} · T2 = {card['T2']:.3f}")
     demo = card['demo']
     row = demo.iloc[[pick_row(demo.Class.values, 'card')]].copy()
@@ -75,6 +89,7 @@ if channel == 'Card / digital':
     with st.expander('Raw features'):
         st.dataframe(row.T, width='stretch')
 else:
+    upi = load_or_explain('upi_model.joblib')
     st.caption(f"Model: {upi['key'][0]} ({upi['key'][1]}) · T1 = {upi['T1']:.4f} · T2 = {upi['T2']:.3f}")
     st.info('On UPI the labels carry no learnable pattern (real labels score the same as shuffled ones, p = 0.43). '
             'Watch how frauds and genuine payments get similar scores, so the system rarely blocks.')
